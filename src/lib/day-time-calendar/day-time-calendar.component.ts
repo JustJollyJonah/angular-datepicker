@@ -23,7 +23,6 @@ import {
   ValidationErrors,
   Validator
 } from '@angular/forms';
-import {Moment} from 'moment';
 import {CalendarValue} from '../common/types/calendar-value';
 import {UtilsService} from '../common/services/utils/utils.service';
 import {IDate} from '../common/models/date.model';
@@ -34,6 +33,7 @@ import {DayTimeCalendarService} from './day-time-calendar.service';
 import {DateValidator} from '../common/types/validator.type';
 import {DayCalendarComponent} from '../day-calendar/day-calendar.component';
 import {INavEvent} from '../common/models/navigation-event.model';
+import { Dayjs } from 'dayjs';
 
 @Component({
   selector: 'dp-day-time-calendar',
@@ -83,13 +83,13 @@ export class DayTimeCalendarComponent implements OnInit, OnChanges, ControlValue
               public cd: ChangeDetectorRef) {
   }
 
-  _selected: Moment;
+  _selected: Dayjs;
 
-  get selected(): Moment {
+  get selected(): Dayjs {
     return this._selected;
   }
 
-  set selected(selected: Moment) {
+  set selected(selected: Dayjs) {
     this._selected = selected;
     this.onChangeCallback(this.processOnChangeCallback(selected));
   }
@@ -122,7 +122,7 @@ export class DayTimeCalendarComponent implements OnInit, OnChanges, ControlValue
 
     if (value) {
       this.selected = this.utilsService
-        .convertToMomentArray(value, {
+        .convertToDayjsArray(value, {
           format: this.componentConfig.format,
           allowMultiSelect: false
         })[0];
@@ -153,8 +153,8 @@ export class DayTimeCalendarComponent implements OnInit, OnChanges, ControlValue
     }
   }
 
-  processOnChangeCallback(value: Moment): CalendarValue {
-    return this.utilsService.convertFromMomentArray(
+  processOnChangeCallback(value: Dayjs): CalendarValue {
+    return this.utilsService.convertFromDayjsArray(
       this.componentConfig.format,
       [value],
       this.componentConfig.returnedValueType || this.inputValueType
