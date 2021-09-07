@@ -4,7 +4,8 @@ import {UtilsService} from '../common/services/utils/utils.service';
 import {DayTimeCalendarService} from '../day-time-calendar/day-time-calendar.service';
 import {DayCalendarService} from '../day-calendar/day-calendar.service';
 import {TimeSelectService} from '../time-select/time-select.service';
-import dayjs, { Dayjs } from 'dayjs';
+import * as dayjs from 'dayjs';
+import { Dayjs } from 'dayjs';
 
 describe('Service: DatePicker', () => {
   beforeEach(() => {
